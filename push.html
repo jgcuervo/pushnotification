@@ -1,0 +1,63 @@
+<html>
+<head>
+<script>
+Notification.requestPermission(function(status) {
+    console.log('Notification permission status:', status);
+});
+</script>
+</head>
+<body>
+
+<script>
+
+function displayNotification() {
+  if (Notification.permission == 'granted') {
+    navigator.serviceWorker.register('sw.js').then(function(reg) {
+      
+	   if(reg)
+	   { 
+	   console.log('Ready');
+	  
+	  var options = {
+        body: 'Here is a notification body!',
+        icon: 'images/example.png',
+        vibrate: [100, 50, 100],
+        data: {
+          dateOfArrival: Date.now(),
+          primaryKey: 1
+        },
+        actions: [
+          {action: 'explore', title: 'Explore this new world',
+            icon: 'images/checkmark.png'},
+          {action: 'close', title: 'Close notification',
+            icon: 'images/xmark.png'},
+        ]
+      };
+      reg.showNotification('Hello world!', options);
+	  }
+	  else{
+	  console.log('Not Ready');
+	  }
+    });
+  }
+}
+
+function displayNotificationX() {
+  
+	
+var img = '/portals/0/logon.png';
+var text = 'HEY! Your task is now overdue.';
+var notification = new Notification('SIF', { body: text, icon: img });
+	
+  }
+
+
+function showNotification(body){
+var img = '/to-do-notifications/img/icon-128.png';
+var text = 'HEY! Your task "' + title + '" is now overdue.';
+var notification = new Notification('To do list', { body: text, icon: img });
+}
+</script>
+<a href="#" onclick="displayNotification();">Presiona aqui!</a>
+</body>
+</html>
